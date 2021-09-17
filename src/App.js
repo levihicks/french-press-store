@@ -1,11 +1,11 @@
-import './App.css';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   createHttpLink
-} from "@apollo/client";
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import Layout from './components/layout';
 
 const httpLink = createHttpLink({ 
   uri: 'https://le-guerno-french-presses.myshopify.com/api/2021-07/graphql.json' 
@@ -23,9 +23,11 @@ const client = new ApolloClient({
 });
 
 function App() {
+  
+
   return (
     <ApolloProvider client={client}>
-      <div></div>
+      <Layout></Layout>
     </ApolloProvider>
   );
 }
