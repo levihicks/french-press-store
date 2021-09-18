@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import storage from 'local-storage-fallback';
 import theme from '../theme';
 import Header from './header';
@@ -8,8 +8,10 @@ const GlobalStyle = createGlobalStyle`
   html {
     background-color: ${(props) =>
       props.theme.colors[props.darkMode ? 'black' : 'white']};
-    color: ${(props) => props.theme.colors[props.darkMode ? 'white' : 'dark']};
     font-family: ${(props) => props.theme.fonts.sansBody}, sans-serif;
+  }
+  * {
+    color: ${(props) => props.theme.colors[props.darkMode ? 'white' : 'dark']};
   }
 `;
 
@@ -17,6 +19,10 @@ const getInitialMode = () => {
   const initialMode = storage.getItem('darkModeOn');
   return initialMode ? JSON.parse(initialMode) : false;
 };
+
+const StyledContainer = styled.div`
+  padding: 0 1rem;
+`;
 
 const Layout = ({ children }) => {
   const [darkModeOn, setDarkModeOn] = useState(getInitialMode);
@@ -28,8 +34,10 @@ const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle darkMode={darkModeOn} />
-      <Header darkModeOn={darkModeOn} setDarkModeOn={setDarkModeOn} />
-      {children}
+      <StyledContainer>
+        <Header darkModeOn={darkModeOn} setDarkModeOn={setDarkModeOn} />
+        {children}
+      </StyledContainer>
     </ThemeProvider>
   );
 };

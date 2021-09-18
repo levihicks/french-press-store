@@ -15,6 +15,13 @@ const theme = {
     sansBody: 'Open Sans',
     sansHeadline: 'Oswald',
   },
+  fontSizes: {
+    xs: '.75rem',
+    md: '2rem',
+    lg: '3rem',
+    xl: '4rem',
+    '2xl': '5rem',
+  },
 };
 
 export default theme;

@@ -5,7 +5,9 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Layout from './components/layout';
+import Home from './pages/home';
 
 const httpLink = createHttpLink({
   uri: 'https://le-guerno-french-presses.myshopify.com/api/2021-07/graphql.json',
@@ -25,7 +27,15 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Layout></Layout>
+      <BrowserRouter>
+        <Layout>
+          <Switch>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Layout>
+      </BrowserRouter>
     </ApolloProvider>
   );
 }
