@@ -3,6 +3,7 @@ import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import storage from 'local-storage-fallback';
 import theme from '../theme';
 import Header from './header';
+import Footer from './footer.js';
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -37,6 +38,7 @@ const Layout = ({ children }) => {
       <StyledContainer>
         <Header darkModeOn={darkModeOn} setDarkModeOn={setDarkModeOn} />
         {children}
+        <Footer />
       </StyledContainer>
     </ThemeProvider>
   );
