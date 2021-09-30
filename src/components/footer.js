@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const StyledFooter = styled.div`
   display: flex;
+  align-items: center;
   margin-top: 5rem;
   margin-bottom: 2rem;
 `;
@@ -17,6 +18,10 @@ const RightsReservedText = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
+  text-align: center;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    font-size: ${(props) => props.theme.fontSizes.xs};
+  }
 `;
 
 const Footer = () => {

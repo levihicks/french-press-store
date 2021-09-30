@@ -43,12 +43,19 @@ const FeaturedText = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xl};
   margin-top: 6rem;
   margin-bottom: 2rem;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    margin-top: 2rem;
+    font-size: ${(props) => props.theme.fontSizes.md};
+    font-weight: 700;
+  }
 `;
 
 const FeaturedHeader = styled.div`
   font-family: ${(props) => props.theme.fonts.sansHeadline};
-  font-size: ${(props) => props.theme.fontSizes.md};
   text-transform: uppercase;
+  @media only screen and (min-width: ${(props) => props.theme.breakpoints.sm}) {
+    font-size: ${(props) => props.theme.fontSizes.md};
+  }
 `;
 
 const ViewAllLink = styled(Link)`
@@ -57,13 +64,18 @@ const ViewAllLink = styled(Link)`
   border-bottom: 2px solid;
   font-weight: 700;
   color: inherit;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    font-size: ${(props) => props.theme.fontSizes.xs};
+  }
 `;
 
 const ProductsList = styled.div`
   display: flex;
   justify-content: space-around;
-  margin: 2rem 0;
   flex-wrap: wrap;
+  @media only screen and (min-width: ${(props) => props.theme.breakpoints.sm}) {
+    margin: 2rem 0;
+  }
 `;
 
 const Featured = () => {

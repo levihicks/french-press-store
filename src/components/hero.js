@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import heroImg from '../assets/hero.jpg';
 
 const StyledHero = styled.div`
@@ -12,6 +11,14 @@ const StyledHero = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   color: ${(props) => props.theme.colors.white};
+  text-shadow: 1px 1px 5px ${(props) => props.theme.colors.black};
+`;
+
+const StyledHeroInnerContainer = styled.div`
+  padding: 5rem 1rem;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    padding 2rem 1rem;
+  }
 `;
 
 const StyledHeroSecondaryText = styled.div`
@@ -21,18 +28,21 @@ const StyledHeroSecondaryText = styled.div`
 const StyledHeroMainText = styled.div`
   text-transform: uppercase;
   font-size: ${(props) => props.theme.fontSizes['2xl']};
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    font-size: ${(props) => props.theme.fontSizes.md};
+  }
 `;
 
 const Hero = () => {
   return (
     <StyledHero>
-      <div style={{ padding: '5rem 1rem' }}>
+      <StyledHeroInnerContainer>
         <StyledHeroSecondaryText>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </StyledHeroSecondaryText>
         <StyledHeroMainText>Lorem ipsum dolor sit amet.</StyledHeroMainText>
-      </div>
+      </StyledHeroInnerContainer>
     </StyledHero>
   );
 };

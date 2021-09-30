@@ -3,16 +3,20 @@ import aboutImg1 from '../assets/about1.jpg';
 import aboutImg2 from '../assets/about2.jpg';
 
 const StyledAbout = styled.div`
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  margin: 3rem 0;
+  @media only screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+    margin: 3rem 0;
+  }
 `;
 
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 2rem;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    flex-direction: ${(props) => (props.columnOnMobile ? 'column' : 'row')};
+  }
 `;
 
 const AboutHeading = styled.div`
@@ -23,8 +27,10 @@ const AboutHeading = styled.div`
 
 const AboutBodyText = styled.div`
   display: flex;
-  width: 50%;
   font-size: ${(props) => props.theme.fontSizes.xs};
+  @media only screen and (min-width: ${(props) => props.theme.breakpoints.sm}) {
+    width: 50%;
+  }
 `;
 
 const StyledImg = styled.img`
@@ -34,7 +40,7 @@ const StyledImg = styled.img`
 const About = () => {
   return (
     <StyledAbout>
-      <Row>
+      <Row columnOnMobile>
         <AboutHeading>About</AboutHeading>
         <AboutBodyText>
           <div>

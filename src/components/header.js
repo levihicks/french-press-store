@@ -17,6 +17,18 @@ const StyledButton = styled.button`
   padding: 2px;
   cursor: pointer;
   margin: 0 1rem;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.md}) {
+    display: ${(props) => (props.displayOnMobile ? 'default' : 'none')};
+    font-size: ${(props) => props.theme.fontSizes.xs};
+    font-weight: 700;
+  }
+`;
+
+const MenuButton = styled(StyledButton)`
+  display: none;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.md}) {
+    display: inline-block;
+  }
 `;
 
 const DarkModeButton = styled(StyledButton)`
@@ -29,20 +41,25 @@ const DarkModeButton = styled(StyledButton)`
 
 const HeaderTitle = styled.h1`
   font-family: ${(props) => props.theme.fonts.sansHeadline}, sans-serif;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    font-size: ${(props) => props.theme.fontSizes.xs};
+    margin: 1rem 0;
+  }
 `;
 
 const Header = ({ darkModeOn, setDarkModeOn }) => {
   return (
     <StyledHeader darkModeOn={darkModeOn}>
       <div>
+        <MenuButton>MENU</MenuButton>
         <DarkModeButton
           darkModeOn={darkModeOn}
           darkButton={true}
           onClick={() => setDarkModeOn(true)}
         >
-          DARK
+          DARK /
         </DarkModeButton>
-        /
+
         <DarkModeButton
           darkModeOn={darkModeOn}
           darkButton={false}
@@ -54,7 +71,7 @@ const Header = ({ darkModeOn, setDarkModeOn }) => {
       <HeaderTitle>LE GUERNO FRENCH PRESSES</HeaderTitle>
       <div>
         <StyledButton>SEARCH</StyledButton>
-        <StyledButton>CART (0)</StyledButton>
+        <StyledButton displayOnMobile>CART (0)</StyledButton>
       </div>
     </StyledHeader>
   );
