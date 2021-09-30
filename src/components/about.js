@@ -3,7 +3,7 @@ import aboutImg1 from '../assets/about1.jpg';
 import aboutImg2 from '../assets/about2.jpg';
 
 const StyledAbout = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   margin: 3rem 0;
