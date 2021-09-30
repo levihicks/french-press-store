@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
+import ProductListItem from './product-list-item';
 
 const FEATURED_PRODUCTS = gql`
   query GetFeaturedProducts {
@@ -53,14 +54,16 @@ const FeaturedHeader = styled.div`
 const ViewAllLink = styled(Link)`
   text-transform: uppercase;
   text-decoration: none;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid;
   font-weight: 700;
+  color: inherit;
 `;
 
 const ProductsList = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 2rem 0;
+  flex-wrap: wrap;
 `;
 
 const Featured = () => {
@@ -93,16 +96,7 @@ const Featured = () => {
       {featuredProducts && (
         <ProductsList>
           {featuredProducts.map((fp) => (
-            <div key={fp.title} style={{ width: '300px' }}>
-              <img src={fp.images.edges[0].node.transformedSrc} alt="" />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div style={{ textTransform: 'uppercase' }}>{fp.title}</div>
-                <div>
-                  {Number(fp.priceRange.maxVariantPrice.amount).toFixed(2)}{' '}
-                  {fp.priceRange.maxVariantPrice.currencyCode}
-                </div>
-              </div>
-            </div>
+            <ProductListItem key={fp.title} product={fp} />
           ))}
         </ProductsList>
       )}
