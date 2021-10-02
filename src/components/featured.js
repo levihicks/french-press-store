@@ -12,6 +12,7 @@ const FEATURED_PRODUCTS = gql`
             edges {
               node {
                 title
+                handle
                 priceRange {
                   maxVariantPrice {
                     amount

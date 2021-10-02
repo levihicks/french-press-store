@@ -32,7 +32,7 @@ const ProductListItem = ({ product }) => {
       style={{ width: '300px' }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={() => history.push('/')}
+      onClick={() => history.push(`/products/${product.handle}`)}
     >
       <ImagesContainer>
         <img

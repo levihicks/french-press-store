@@ -23,6 +23,10 @@ const getInitialMode = () => {
 
 const StyledContainer = styled.div`
   padding: 0 1rem;
+  padding-top: 90px;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    padding-top: 50px;
+  }
 `;
 
 const Layout = ({ children }) => {

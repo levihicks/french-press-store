@@ -6,8 +6,10 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import * as ROUTES from './constants/routes';
 import Layout from './components/layout';
 import Home from './pages/home';
+import Product from './pages/product';
 
 const httpLink = createHttpLink({
   uri: 'https://le-guerno-french-presses.myshopify.com/api/2021-07/graphql.json',
@@ -30,7 +32,10 @@ function App() {
       <BrowserRouter>
         <Layout>
           <Switch>
-            <Route path="/">
+            <Route path={ROUTES.PRODUCT}>
+              <Product />
+            </Route>
+            <Route path={ROUTES.HOME}>
               <Home />
             </Route>
           </Switch>
