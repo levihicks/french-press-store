@@ -7,7 +7,6 @@ const StyledHeader = styled.div`
   top: 0;
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   background: ${(props) =>
     props.darkModeOn ? props.theme.colors.black : props.theme.colors.white};
@@ -15,6 +14,9 @@ const StyledHeader = styled.div`
 
 const HeaderColumn = styled.div`
   padding: 0 1rem;
+  flex: 1;
+  display: flex;
+  justify-content: center;
 `;
 
 const StyledButton = styled.button`
@@ -62,7 +64,7 @@ const HeaderTitle = styled.h1`
 const Header = ({ darkModeOn, setDarkModeOn }) => {
   return (
     <StyledHeader darkModeOn={darkModeOn}>
-      <HeaderColumn>
+      <HeaderColumn style={{ justifyContent: 'flex-start' }}>
         <MenuButton>MENU</MenuButton>
         <DarkModeButtons>
           <DarkModeButton
@@ -82,9 +84,11 @@ const Header = ({ darkModeOn, setDarkModeOn }) => {
           </DarkModeButton>
         </DarkModeButtons>
       </HeaderColumn>
-      <HeaderTitle>LE GUERNO FRENCH PRESSES</HeaderTitle>
-      <HeaderColumn>
-        <StyledButton>SEARCH</StyledButton>
+      <HeaderColumn style={{ flexGrow: 1, whiteSpace: 'nowrap' }}>
+        <HeaderTitle>LE GUERNO FRENCH PRESSES</HeaderTitle>
+      </HeaderColumn>
+      <HeaderColumn style={{ justifyContent: 'flex-end' }}>
+        <StyledButton style={{ paddingRight: '1rem' }}>SEARCH</StyledButton>
         <StyledButton displayOnMobile>CART (0)</StyledButton>
       </HeaderColumn>
     </StyledHeader>
