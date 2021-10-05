@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledHeader = styled.div`
@@ -55,6 +56,7 @@ const DarkModeButton = styled(StyledButton)`
 
 const HeaderTitle = styled.h1`
   font-family: ${(props) => props.theme.fonts.sansHeadline}, sans-serif;
+  cursor: pointer;
   @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
     font-size: ${(props) => props.theme.fontSizes.xs};
     margin: 1rem 0;
@@ -62,6 +64,8 @@ const HeaderTitle = styled.h1`
 `;
 
 const Header = ({ darkModeOn, setDarkModeOn }) => {
+  const history = useHistory();
+
   return (
     <StyledHeader darkModeOn={darkModeOn}>
       <HeaderColumn style={{ justifyContent: 'flex-start' }}>
@@ -85,7 +89,13 @@ const Header = ({ darkModeOn, setDarkModeOn }) => {
         </DarkModeButtons>
       </HeaderColumn>
       <HeaderColumn style={{ flexGrow: 1, whiteSpace: 'nowrap' }}>
-        <HeaderTitle>LE GUERNO FRENCH PRESSES</HeaderTitle>
+        <HeaderTitle
+          onClick={() => {
+            history.push('/');
+          }}
+        >
+          LE GUERNO FRENCH PRESSES
+        </HeaderTitle>
       </HeaderColumn>
       <HeaderColumn style={{ justifyContent: 'flex-end' }}>
         <StyledButton style={{ paddingRight: '1rem' }}>SEARCH</StyledButton>
