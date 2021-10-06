@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
-import ProductListItem from './product-list-item';
+import { gql, useQuery } from '@apollo/client';
+import ProductsList from './products-list';
 
 const FEATURED_PRODUCTS = gql`
   query GetFeaturedProducts {
@@ -70,24 +70,14 @@ const ViewAllLink = styled(Link)`
   }
 `;
 
-const ProductsList = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  @media only screen and (min-width: ${(props) => props.theme.breakpoints.sm}) {
-    margin: 2rem 0;
-  }
-`;
-
 const Featured = () => {
   const { data, loading, error } = useQuery(FEATURED_PRODUCTS);
-
-  let featuredProducts;
+  let products;
   if (data) {
-    console.log(data);
-    featuredProducts = data.collections.edges[0]?.node.products.edges.map(
+    products = data.collections.edges[0]?.node.products.edges.map(
       (e) => e.node
     );
+    console.log(data);
   }
 
   if (loading) return <div>Loading...</div>;
@@ -104,15 +94,9 @@ const Featured = () => {
         }}
       >
         <FeaturedHeader>Featured</FeaturedHeader>
-        <ViewAllLink to="/">View all products</ViewAllLink>
+        <ViewAllLink to="/products">View all products</ViewAllLink>
       </div>
-      {featuredProducts && (
-        <ProductsList>
-          {featuredProducts.map((fp) => (
-            <ProductListItem key={fp.title} product={fp} />
-          ))}
-        </ProductsList>
-      )}
+      <ProductsList products={products} />
     </div>
   );
 };
