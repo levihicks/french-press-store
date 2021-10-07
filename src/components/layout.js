@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import storage from 'local-storage-fallback';
+import { setDarkMode } from '../store/themeSlice';
 import theme from '../theme';
 import Header from './header';
 import Footer from './footer.js';
 
 const GlobalStyle = createGlobalStyle`
   html {
-    background-color: ${(props) =>
-      props.theme.colors[props.darkMode ? 'black' : 'white']};
+    background-color: ${(props) => props.backgroundColor};
     font-family: ${(props) => props.theme.fonts.sansBody}, sans-serif;
   }
   * {
-    color: ${(props) => props.theme.colors[props.darkMode ? 'white' : 'dark']};
+    color: ${(props) => props.textColor};
   }
 `;
 
@@ -30,17 +31,22 @@ const StyledContainer = styled.div`
 `;
 
 const Layout = ({ children }) => {
-  const [darkModeOn, setDarkModeOn] = useState(getInitialMode);
+  const { backgroundColor, textColor, darkModeOn } = useSelector(
+    (state) => state.theme
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(setDarkMode(getInitialMode())), [dispatch]);
 
   useEffect(() => {
-    storage.setItem('theme', JSON.stringify(theme));
+    storage.setItem('darkModeOn', JSON.stringify(darkModeOn));
   }, [darkModeOn]);
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle darkMode={darkModeOn} />
+      <GlobalStyle backgroundColor={backgroundColor} textColor={textColor} />
       <StyledContainer>
-        <Header darkModeOn={darkModeOn} setDarkModeOn={setDarkModeOn} />
+        <Header />
         {children}
         <Footer />
       </StyledContainer>

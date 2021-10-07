@@ -4,6 +4,7 @@ import Button from './button';
 const StyledInput = styled.input`
   border: none;
   border-bottom: 1px solid;
+  background: inherit;
   -moz-appearance: textfield;
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;

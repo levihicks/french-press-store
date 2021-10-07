@@ -10,7 +10,7 @@ const StyledHero = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  color: ${(props) => props.theme.colors.white};
+
   text-shadow: 1px 1px 5px ${(props) => props.theme.colors.black};
 `;
 
@@ -23,10 +23,12 @@ const StyledHeroInnerContainer = styled.div`
 
 const StyledHeroSecondaryText = styled.div`
   width: 40%;
+  color: ${(props) => props.theme.colors.white};
 `;
 
 const StyledHeroMainText = styled.div`
   text-transform: uppercase;
+  color: ${(props) => props.theme.colors.white};
   font-size: ${(props) => props.theme.fontSizes['2xl']};
   @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
     font-size: ${(props) => props.theme.fontSizes.md};

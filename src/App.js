@@ -11,6 +11,8 @@ import Layout from './components/layout';
 import Home from './pages/home';
 import Product from './pages/product';
 import Products from './pages/products';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const httpLink = createHttpLink({
   uri: 'https://le-guerno-french-presses.myshopify.com/api/2021-07/graphql.json',
@@ -31,19 +33,21 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <Layout>
-          <Switch>
-            <Route path={ROUTES.PRODUCT}>
-              <Product />
-            </Route>
-            <Route path={ROUTES.PRODUCTS}>
-              <Products />
-            </Route>
-            <Route path={ROUTES.HOME}>
-              <Home />
-            </Route>
-          </Switch>
-        </Layout>
+        <Provider store={store}>
+          <Layout>
+            <Switch>
+              <Route path={ROUTES.PRODUCT}>
+                <Product />
+              </Route>
+              <Route path={ROUTES.PRODUCTS}>
+                <Products />
+              </Route>
+              <Route path={ROUTES.HOME}>
+                <Home />
+              </Route>
+            </Switch>
+          </Layout>
+        </Provider>
       </BrowserRouter>
     </ApolloProvider>
   );

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const StyledCategory = styled.div`
@@ -20,7 +21,8 @@ const CategoryOptions = styled.div`
   left: 0;
   width: 100%;
   height: 300px;
-  background: ${(props) => props.theme.colors.white};
+  background: ${(props) => props.backgroundColor};
+  color: ${(props) => props.textColor};
   display: flex;
 `;
 
@@ -30,6 +32,7 @@ const Category = ({
   category,
   children,
 }) => {
+  const { backgroundColor, textColor } = useSelector((state) => state.theme);
   return (
     <StyledCategory
       onMouseEnter={() => setCategoryHoverState(category)}
@@ -37,7 +40,12 @@ const Category = ({
     >
       {category} <span className="category-arrow">▲</span>
       {categoryHoverState === category && (
-        <CategoryOptions>{children}</CategoryOptions>
+        <CategoryOptions
+          backgroundColor={backgroundColor}
+          textColor={textColor}
+        >
+          {children}
+        </CategoryOptions>
       )}
     </StyledCategory>
   );

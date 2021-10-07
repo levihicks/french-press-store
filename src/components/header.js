@@ -1,5 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { setDarkMode } from '../store/themeSlice';
 
 const StyledHeader = styled.div`
   z-index: 100;
@@ -9,8 +11,7 @@ const StyledHeader = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  background: ${(props) =>
-    props.darkModeOn ? props.theme.colors.black : props.theme.colors.white};
+  background: ${(props) => props.backgroundColor};
 `;
 
 const HeaderColumn = styled.div`
@@ -47,9 +48,7 @@ const DarkModeButtons = styled.div`
 
 const DarkModeButton = styled(StyledButton)`
   font-weight: 600;
-  border-bottom: 3px solid
-    ${(props) =>
-      props.darkButton ? props.theme.colors.white : props.theme.colors.black};
+  border-bottom: 3px solid;
   ${(props) => props.darkModeOn !== props.darkButton && 'border: none;'}
   margin: 0;
 `;
@@ -63,18 +62,20 @@ const HeaderTitle = styled.h1`
   }
 `;
 
-const Header = ({ darkModeOn, setDarkModeOn }) => {
+const Header = () => {
+  const { darkModeOn, backgroundColor } = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   return (
-    <StyledHeader darkModeOn={darkModeOn}>
+    <StyledHeader backgroundColor={backgroundColor}>
       <HeaderColumn style={{ justifyContent: 'flex-start' }}>
         <MenuButton>MENU</MenuButton>
         <DarkModeButtons>
           <DarkModeButton
             darkModeOn={darkModeOn}
             darkButton={true}
-            onClick={() => setDarkModeOn(true)}
+            onClick={() => dispatch(setDarkMode(true))}
           >
             DARK
           </DarkModeButton>
@@ -82,7 +83,7 @@ const Header = ({ darkModeOn, setDarkModeOn }) => {
           <DarkModeButton
             darkModeOn={darkModeOn}
             darkButton={false}
-            onClick={() => setDarkModeOn(false)}
+            onClick={() => dispatch(setDarkMode(false))}
           >
             LIGHT
           </DarkModeButton>
