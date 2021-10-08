@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Category from './category';
 import SortingInput from './sorting-input';
@@ -17,9 +17,24 @@ const CategoriesHeading = styled.div`
   color: ${(props) => props.theme.colors.darkGray};
 `;
 
-const ProductFilters = () => {
+const ProductFilters = ({ setFilters, setSorting }) => {
   const [categoryHover, setCategoryHover] = useState(false);
-  const [sortedBy, setSortedBy] = useState(SORTING_OPTIONS.ALPHA_ASC);
+  const [priceFilter, setPriceFilter] = useState({ min: '', max: '' });
+  const [weightFilter, setWeightFilter] = useState({ min: '', max: '' });
+  const [sortedBy, setSortedBy] = useState(SORTING_OPTIONS.PLACEHOLDER_TEXT);
+
+  useEffect(() => {
+    setFilters({ price: priceFilter, weight: weightFilter });
+  }, [priceFilter, weightFilter, setFilters]);
+
+  useEffect(() => {
+    setSorting(sortedBy);
+  }, [setSorting, sortedBy]);
+
+  const clearAll = () => {
+    setPriceFilter({ min: '', max: '' });
+    setWeightFilter({ min: '', max: '' });
+  };
 
   return (
     <StyledProductFilters>
@@ -29,15 +44,25 @@ const ProductFilters = () => {
           categoryHoverState={categoryHover}
           setCategoryHoverState={setCategoryHover}
           category="price"
+          clearAll={clearAll}
         >
-          <NumberRangeInput units="USD" />
+          <NumberRangeInput
+            units="USD"
+            filter={priceFilter}
+            setFilter={setPriceFilter}
+          />
         </Category>
         <Category
           categoryHoverState={categoryHover}
           setCategoryHoverState={setCategoryHover}
           category="weight"
+          clearAll={clearAll}
         >
-          <NumberRangeInput units="LBS" />
+          <NumberRangeInput
+            units="LBS"
+            filter={weightFilter}
+            setFilter={setWeightFilter}
+          />
         </Category>
       </div>
       <div style={{ display: 'flex' }}>

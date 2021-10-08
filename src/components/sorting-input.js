@@ -10,12 +10,16 @@ const InputOption = styled.div`
   }
 `;
 
-const SortingInput = ({ sortedBy, setSortedBy }) => {
+const SortingInput = ({ setSortedBy }) => {
   return (
     <div style={{ marginLeft: 'auto' }}>
-      {Object.values(SORTING_OPTIONS).map((el) => (
-        <InputOption key={el}>{el}</InputOption>
-      ))}
+      {Object.values(SORTING_OPTIONS)
+        .filter((el) => el !== SORTING_OPTIONS.PLACEHOLDER_TEXT)
+        .map((el) => (
+          <InputOption onClick={() => setSortedBy(el)} key={el}>
+            {el}
+          </InputOption>
+        ))}
     </div>
   );
 };

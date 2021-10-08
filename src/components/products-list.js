@@ -10,12 +10,18 @@ const StyledProductsList = styled.div`
   }
 `;
 
+const NoResultsText = styled.div`
+  font-family: ${(props) => props.theme.fonts.sansHeadline};
+`;
+
 const ProductsList = ({ products }) => {
   return (
     <StyledProductsList>
-      {products.map((p) => (
-        <ProductListItem key={p.title} product={p} />
-      ))}
+      {products.length > 0 ? (
+        products.map((p) => <ProductListItem key={p.title} product={p} />)
+      ) : (
+        <NoResultsText>No results.</NoResultsText>
+      )}
     </StyledProductsList>
   );
 };

@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Button from './button';
 
 const StyledCategory = styled.div`
   margin-left: 1rem;
@@ -17,6 +18,7 @@ const StyledCategory = styled.div`
 
 const CategoryOptions = styled.div`
   position: absolute;
+  padding-top: 2rem;
   top: 100%;
   left: 0;
   width: 100%;
@@ -24,12 +26,19 @@ const CategoryOptions = styled.div`
   background: ${(props) => props.backgroundColor};
   color: ${(props) => props.textColor};
   display: flex;
+  align-items: flex-start;
+`;
+
+const ClearAllButtonContainer = styled.div`
+  flex: 1;
+  text-align: right;
 `;
 
 const Category = ({
   categoryHoverState,
   setCategoryHoverState,
   category,
+  clearAll,
   children,
 }) => {
   const { backgroundColor, textColor } = useSelector((state) => state.theme);
@@ -44,7 +53,11 @@ const Category = ({
           backgroundColor={backgroundColor}
           textColor={textColor}
         >
+          <div style={{ flex: 1 }}></div>
           {children}
+          <ClearAllButtonContainer>
+            {clearAll && <Button click={clearAll}>Clear all</Button>}
+          </ClearAllButtonContainer>
         </CategoryOptions>
       )}
     </StyledCategory>

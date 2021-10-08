@@ -10,8 +10,12 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-const Button = ({ click, children }) => {
-  return <StyledButton onClick={click}>{children}</StyledButton>;
+const Button = ({ click, children, className }) => {
+  return (
+    <StyledButton className={className} onClick={click}>
+      {children}
+    </StyledButton>
+  );
 };
 
 export default Button;

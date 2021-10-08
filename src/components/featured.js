@@ -77,7 +77,6 @@ const Featured = () => {
     products = data.collections.edges[0]?.node.products.edges.map(
       (e) => e.node
     );
-    console.log(data);
   }
 
   if (loading) return <div>Loading...</div>;
