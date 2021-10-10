@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setDarkMode } from '../store/themeSlice';
-
+import * as ROUTES from '../constants/routes';
 const StyledHeader = styled.div`
   z-index: 100;
   position: fixed;
@@ -99,7 +99,12 @@ const Header = () => {
         </HeaderTitle>
       </HeaderColumn>
       <HeaderColumn style={{ justifyContent: 'flex-end' }}>
-        <StyledButton style={{ paddingRight: '1rem' }}>SEARCH</StyledButton>
+        <StyledButton
+          style={{ paddingRight: '1rem' }}
+          onClick={() => history.push(ROUTES.SEARCH)}
+        >
+          SEARCH
+        </StyledButton>
         <StyledButton displayOnMobile>CART (0)</StyledButton>
       </HeaderColumn>
     </StyledHeader>

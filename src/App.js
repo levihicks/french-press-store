@@ -11,6 +11,7 @@ import Layout from './components/layout';
 import Home from './pages/home';
 import Product from './pages/product';
 import Products from './pages/products';
+import Search from './pages/search';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
@@ -41,6 +42,9 @@ function App() {
               </Route>
               <Route path={ROUTES.PRODUCTS}>
                 <Products />
+              </Route>
+              <Route path={ROUTES.SEARCH}>
+                <Search />
               </Route>
               <Route path={ROUTES.HOME}>
                 <Home />
