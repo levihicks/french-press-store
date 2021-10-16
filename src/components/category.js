@@ -27,6 +27,15 @@ const CategoryOptions = styled.div`
   color: ${(props) => props.textColor};
   display: flex;
   align-items: flex-start;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    margin: 0 -1rem;
+    padding 1rem;
+    overflow: hidden; 
+    flex-direction: column;
+    & #space-holder {
+      display: none;
+    }
+  }
 `;
 
 const ClearAllButtonContainer = styled.div`
@@ -45,7 +54,7 @@ const Category = ({
   return (
     <StyledCategory
       onMouseEnter={() => setCategoryHoverState(category)}
-      onMouseLeave={() => setCategoryHoverState(false)}
+      onClick={() => setCategoryHoverState(category)}
     >
       {category} <span className="category-arrow">▲</span>
       {categoryHoverState === category && (
@@ -53,7 +62,7 @@ const Category = ({
           backgroundColor={backgroundColor}
           textColor={textColor}
         >
-          <div style={{ flex: 1 }}></div>
+          <div id="space-holder" style={{ flex: 1 }}></div>
           {children}
           <ClearAllButtonContainer>
             {clearAll && <Button click={clearAll}>Clear all</Button>}

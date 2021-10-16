@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import * as SORTING_OPTIONS from '../constants/sorting-options';
 
+const SortingInputContainer = styled.div`
+  @media only screen and (min-width: ${(props) => props.theme.breakpoints.sm}) {
+    margin-left: auto;
+  }
+`;
+
 const InputOption = styled.div`
   cursor: pointer;
   font-family: ${(props) => props.theme.fonts.sansHeadline};
@@ -12,7 +18,7 @@ const InputOption = styled.div`
 
 const SortingInput = ({ setSortedBy }) => {
   return (
-    <div style={{ marginLeft: 'auto' }}>
+    <SortingInputContainer>
       {Object.values(SORTING_OPTIONS)
         .filter((el) => el !== SORTING_OPTIONS.PLACEHOLDER_TEXT)
         .map((el) => (
@@ -20,7 +26,7 @@ const SortingInput = ({ setSortedBy }) => {
             {el}
           </InputOption>
         ))}
-    </div>
+    </SortingInputContainer>
   );
 };
 

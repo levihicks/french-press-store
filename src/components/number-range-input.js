@@ -10,6 +10,7 @@ const StyledInput = styled.input`
   outline: none;
   font-size: 1.25rem;
   font-weight: 700;
+  width: 4rem;
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }

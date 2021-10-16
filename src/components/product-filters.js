@@ -11,6 +11,12 @@ const StyledProductFilters = styled.div`
   justify-content: space-between;
   text-transform: uppercase;
   position: relative;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    flex-direction: column;
+    & > div {
+      margin-bottom: 1rem;
+    }
+  }
 `;
 
 const CategoriesHeading = styled.div`
@@ -25,10 +31,12 @@ const ProductFilters = ({ setFilters, setSorting }) => {
 
   useEffect(() => {
     setFilters({ price: priceFilter, weight: weightFilter });
+    setCategoryHover(false);
   }, [priceFilter, weightFilter, setFilters]);
 
   useEffect(() => {
     setSorting(sortedBy);
+    setCategoryHover(false);
   }, [setSorting, sortedBy]);
 
   const clearAll = () => {
@@ -37,7 +45,7 @@ const ProductFilters = ({ setFilters, setSorting }) => {
   };
 
   return (
-    <StyledProductFilters>
+    <StyledProductFilters onMouseLeave={() => setCategoryHover(false)}>
       <div style={{ display: 'flex' }}>
         <CategoriesHeading>Filter by:</CategoriesHeading>
         <Category
