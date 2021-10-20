@@ -2,6 +2,8 @@ import { useParams } from 'react-router';
 import { useQuery, gql } from '@apollo/client';
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../store/cartSlice';
 import PouringCoffeeImage from '../assets/coffee-pouring.jpg';
 
 const GET_PRODUCT_BY_HANDLE = gql`
@@ -20,6 +22,7 @@ const GET_PRODUCT_BY_HANDLE = gql`
       variants(first: 1) {
         edges {
           node {
+            id
             sku
             weight
             weightUnit
@@ -133,6 +136,7 @@ const AddToCartButton = styled.button`
   font-weight: 700;
   text-transform: uppercase;
   padding: 0;
+  cursor: pointer;
 `;
 
 const ProductDescriptionContainer = styled.div`
@@ -182,9 +186,14 @@ const OriginText = styled.div`
 
 const Product = () => {
   let { handle } = useParams();
+  const dispatch = useDispatch();
   const { data, loading, error } = useQuery(GET_PRODUCT_BY_HANDLE, {
     variables: { handle },
   });
+
+  const addToCartHandler = () => {
+    dispatch(addToCart(data.productByHandle.variants.edges[0].node.id));
+  };
 
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -250,7 +259,9 @@ const Product = () => {
             hideOnMobile
             style={{ alignSelf: 'flex-end', textAlign: 'right' }}
           >
-            <AddToCartButton>Add to cart</AddToCartButton>
+            <AddToCartButton onClick={addToCartHandler}>
+              Add to cart
+            </AddToCartButton>
             <ProductPrice>
               {Number(product.price).toFixed(2)} {product.currencyCode}
             </ProductPrice>

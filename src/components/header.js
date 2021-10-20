@@ -64,6 +64,7 @@ const HeaderTitle = styled.h1`
 
 const Header = () => {
   const { darkModeOn, backgroundColor } = useSelector((state) => state.theme);
+  const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -105,7 +106,7 @@ const Header = () => {
         >
           SEARCH
         </StyledButton>
-        <StyledButton displayOnMobile>CART (0)</StyledButton>
+        <StyledButton displayOnMobile>CART ({cart.length})</StyledButton>
       </HeaderColumn>
     </StyledHeader>
   );
