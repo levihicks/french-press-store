@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/cartSlice';
 import PouringCoffeeImage from '../assets/coffee-pouring.jpg';
+import { useEffect } from 'react';
 
 const GET_PRODUCT_BY_HANDLE = gql`
   query GetProductByHandle($handle: String!) {
@@ -72,6 +73,7 @@ const ImageNavigationButton = styled.button`
   border: none;
   font-weight: 700;
   text-transform: uppercase;
+  cursor: pointer;
   @media only screen and (max-width: ${(props) => props.theme.breakpoints.md}) {
     position: absolute;
     top: 0;
@@ -196,6 +198,11 @@ const Product = () => {
   };
 
   const [imageIndex, setImageIndex] = useState(0);
+  const [imageLoading, setImageLoading] = useState(true);
+
+  useEffect(() => {
+    setImageLoading(true);
+  }, [imageIndex, setImageLoading]);
 
   let product = {};
 
@@ -242,7 +249,19 @@ const Product = () => {
           </MainInfoContainer>
         </Column>
         <ProductImageContainer>
-          <img src={product.images[imageIndex]} alt="" />
+          {imageLoading && (
+            <div
+              style={{ height: '450px', display: 'flex', alignItems: 'center' }}
+            >
+              Loading...
+            </div>
+          )}
+          <img
+            style={imageLoading ? { display: 'none' } : {}}
+            src={product.images[imageIndex]}
+            alt=""
+            onLoad={() => setImageLoading(false)}
+          />
         </ProductImageContainer>
         <Column>
           <ImageNavigationButton
