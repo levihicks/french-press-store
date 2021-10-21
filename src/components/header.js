@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setDarkMode } from '../store/themeSlice';
 import * as ROUTES from '../constants/routes';
+import MobileMenu from './mobile-menu';
 const StyledHeader = styled.div`
   z-index: 100;
   position: fixed;
@@ -68,47 +70,56 @@ const Header = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const [mobileMenuActive, setMobileMenuActive] = useState(false);
+
   return (
-    <StyledHeader backgroundColor={backgroundColor}>
-      <HeaderColumn style={{ justifyContent: 'flex-start' }}>
-        <MenuButton>MENU</MenuButton>
-        <DarkModeButtons>
-          <DarkModeButton
-            darkModeOn={darkModeOn}
-            darkButton={true}
-            onClick={() => dispatch(setDarkMode(true))}
+    <>
+      <StyledHeader backgroundColor={backgroundColor}>
+        <HeaderColumn style={{ justifyContent: 'flex-start' }}>
+          <MenuButton onClick={() => setMobileMenuActive((val) => !val)}>
+            MENU
+          </MenuButton>
+          <DarkModeButtons>
+            <DarkModeButton
+              darkModeOn={darkModeOn}
+              darkButton={true}
+              onClick={() => dispatch(setDarkMode(true))}
+            >
+              DARK
+            </DarkModeButton>
+            /
+            <DarkModeButton
+              darkModeOn={darkModeOn}
+              darkButton={false}
+              onClick={() => dispatch(setDarkMode(false))}
+            >
+              LIGHT
+            </DarkModeButton>
+          </DarkModeButtons>
+        </HeaderColumn>
+        <HeaderColumn style={{ flexGrow: 1, whiteSpace: 'nowrap' }}>
+          <HeaderTitle
+            onClick={() => {
+              history.push('/');
+            }}
           >
-            DARK
-          </DarkModeButton>
-          /
-          <DarkModeButton
-            darkModeOn={darkModeOn}
-            darkButton={false}
-            onClick={() => dispatch(setDarkMode(false))}
+            LE GUERNO FRENCH PRESSES
+          </HeaderTitle>
+        </HeaderColumn>
+        <HeaderColumn style={{ justifyContent: 'flex-end' }}>
+          <StyledButton
+            style={{ paddingRight: '1rem' }}
+            onClick={() => history.push(ROUTES.SEARCH)}
           >
-            LIGHT
-          </DarkModeButton>
-        </DarkModeButtons>
-      </HeaderColumn>
-      <HeaderColumn style={{ flexGrow: 1, whiteSpace: 'nowrap' }}>
-        <HeaderTitle
-          onClick={() => {
-            history.push('/');
-          }}
-        >
-          LE GUERNO FRENCH PRESSES
-        </HeaderTitle>
-      </HeaderColumn>
-      <HeaderColumn style={{ justifyContent: 'flex-end' }}>
-        <StyledButton
-          style={{ paddingRight: '1rem' }}
-          onClick={() => history.push(ROUTES.SEARCH)}
-        >
-          SEARCH
-        </StyledButton>
-        <StyledButton displayOnMobile>CART ({cart.length})</StyledButton>
-      </HeaderColumn>
-    </StyledHeader>
+            SEARCH
+          </StyledButton>
+          <StyledButton displayOnMobile>CART ({cart.length})</StyledButton>
+        </HeaderColumn>
+      </StyledHeader>
+      {mobileMenuActive && (
+        <MobileMenu setMobileMenuActive={setMobileMenuActive} />
+      )}
+    </>
   );
 };
 
