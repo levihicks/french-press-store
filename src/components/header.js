@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setDarkMode } from '../store/themeSlice';
 import * as ROUTES from '../constants/routes';
 import MobileMenu from './mobile-menu';
+
 const StyledHeader = styled.div`
   z-index: 100;
   position: fixed;
@@ -113,7 +114,14 @@ const Header = () => {
           >
             SEARCH
           </StyledButton>
-          <StyledButton displayOnMobile>CART ({cart.length})</StyledButton>
+          <StyledButton
+            onClick={() => {
+              history.push(ROUTES.CART);
+            }}
+            displayOnMobile
+          >
+            CART ({cart.length})
+          </StyledButton>
         </HeaderColumn>
       </StyledHeader>
       {mobileMenuActive && (

@@ -193,8 +193,15 @@ const Product = () => {
     variables: { handle },
   });
 
-  const addToCartHandler = () => {
-    dispatch(addToCart(data.productByHandle.variants.edges[0].node.id));
+  const addToCartHandler = (p) => {
+    dispatch(
+      addToCart({
+        variantId: p.id,
+        imageUrl: p.images[0],
+        price: p.price,
+        title: p.title,
+      })
+    );
   };
 
   const [imageIndex, setImageIndex] = useState(0);
@@ -219,6 +226,7 @@ const Product = () => {
       sku: product.sku,
       weight: product.weight,
       weightUnit: product.weightUnit,
+      id: product.id,
     } = data.productByHandle.variants.edges[0].node);
     ({ amount: product.price, currencyCode: product.currencyCode } =
       data.productByHandle.variants.edges[0].node.priceV2);
@@ -278,7 +286,7 @@ const Product = () => {
             hideOnMobile
             style={{ alignSelf: 'flex-end', textAlign: 'right' }}
           >
-            <AddToCartButton onClick={addToCartHandler}>
+            <AddToCartButton onClick={() => addToCartHandler(product)}>
               Add to cart
             </AddToCartButton>
             <ProductPrice>
@@ -292,7 +300,10 @@ const Product = () => {
           <SKU>{product.sku}</SKU>
           <ProductTitle>{product.title}</ProductTitle>
         </MainInfoContainer>
-        <MainInfoContainer hideOnDesktop>
+        <MainInfoContainer
+          hideOnDesktop
+          onClick={() => addToCartHandler(product)}
+        >
           <AddToCartButton>Add to cart</AddToCartButton>
           <ProductPrice>
             {Number(product.price).toFixed(2)} {product.currencyCode}
