@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -21,6 +20,7 @@ const StyledMobileMenu = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  z-index: 1000;
   @media only screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     display: none;
   }
@@ -40,18 +40,11 @@ const MobileMenuItem = styled.div`
 
 const MobileMenuLink = styled.div``;
 
-const MobileMenu = ({ setMobileMenuActive }) => {
+const MobileMenu = ({ setMobileMenuActive, navigateHandler }) => {
   const { darkModeOn } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
 
   const { backgroundColor } = useSelector((state) => state.theme);
-
-  const history = useHistory();
-
-  const navigateHandler = (route) => {
-    history.push(route);
-    setMobileMenuActive(false);
-  };
 
   return (
     <StyledMobileMenu backgroundColor={backgroundColor}>

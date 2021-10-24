@@ -73,6 +73,11 @@ const Header = () => {
 
   const [mobileMenuActive, setMobileMenuActive] = useState(false);
 
+  const navigateHandler = (route) => {
+    history.push(route);
+    setMobileMenuActive(false);
+  };
+
   return (
     <>
       <StyledHeader backgroundColor={backgroundColor}>
@@ -99,25 +104,19 @@ const Header = () => {
           </DarkModeButtons>
         </HeaderColumn>
         <HeaderColumn style={{ flexGrow: 1, whiteSpace: 'nowrap' }}>
-          <HeaderTitle
-            onClick={() => {
-              history.push('/');
-            }}
-          >
+          <HeaderTitle onClick={() => navigateHandler(ROUTES.HOME)}>
             LE GUERNO FRENCH PRESSES
           </HeaderTitle>
         </HeaderColumn>
         <HeaderColumn style={{ justifyContent: 'flex-end' }}>
           <StyledButton
             style={{ paddingRight: '1rem' }}
-            onClick={() => history.push(ROUTES.SEARCH)}
+            onClick={() => navigateHandler(ROUTES.SEARCH)}
           >
             SEARCH
           </StyledButton>
           <StyledButton
-            onClick={() => {
-              history.push(ROUTES.CART);
-            }}
+            onClick={() => navigateHandler(ROUTES.CART)}
             displayOnMobile
           >
             CART ({cart.length})
@@ -125,7 +124,10 @@ const Header = () => {
         </HeaderColumn>
       </StyledHeader>
       {mobileMenuActive && (
-        <MobileMenu setMobileMenuActive={setMobileMenuActive} />
+        <MobileMenu
+          setMobileMenuActive={setMobileMenuActive}
+          navigateHandler={navigateHandler}
+        />
       )}
     </>
   );
