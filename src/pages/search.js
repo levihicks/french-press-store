@@ -8,6 +8,8 @@ import ProductsList from '../components/products-list';
 const Searchbox = styled.div`
   border-bottom: 2px solid;
   padding: 2px 0;
+  display: flex;
+  align-items: center;
 `;
 
 const SearchboxInput = styled.input`
@@ -15,7 +17,10 @@ const SearchboxInput = styled.input`
   background: none;
   outline: none;
   border: none;
-  margin-left: 1rem;
+  overflow: hidden;
+  @media only screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+    margin-left: 1rem;
+  }
 `;
 
 const GET_PRODUCTS = gql`
